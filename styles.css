@@ -1,0 +1,234 @@
+/* Your CSS styles here */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    color: #333;
+}
+
+header {
+    background-color: #fbf3e5;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+main {
+    padding: 0.5rem;
+    max-width: 800px;
+    margin: auto;
+}
+
+.tiffin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.tiffin img {
+    max-width: 80px;
+    border-radius: 10px;
+}
+
+.tiffin-info {
+    flex: 1;
+    margin-left: 1rem;
+}
+
+.tiffin-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #4CAF50;
+}
+
+.tiffin-info p {
+    margin: 0.5rem 0;
+    color: #555;
+}
+
+.price {
+    font-weight: bold;
+    color: #000;
+}
+
+.quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem; /* Adjust font size for better proportions */
+    padding: 1rem 0.75rem;
+}
+
+.quantity-selector button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.quantity-selector button:hover {
+    background-color: #45a049;
+}
+
+.quantity-selector button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.quantity-selector input {
+    width: 1rem;
+    height: 2.5rem;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    padding: 0.5;
+    box-sizing: border-box;
+}
+
+
+.cart-summary {
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+button {
+    display: block;
+    margin: 2rem auto;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.form-section {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 2rem;
+}
+
+input[type="text"], input[type="tel"], select {
+    width: calc(100% - 1rem);
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+    .tiffin img {
+        max-width: 60px;
+    }
+
+    .tiffin-info h3 {
+        font-size: 1rem;
+    }
+}
+
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    appearance: none;
+    background-color: #fff;
+}
+
+select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.select::after {
+    content: "\25BC";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    pointer-events: none;
+}
+
+.altmess-design {
+    font-size: 6vw;
+    font-weight: bold;
+    color: black;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    animation: glow 2s infinite alternate;
+}
+
+.altmess-tagline {
+    font-size: 1rem;
+    font-weight: normal;
+    color: black;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.thank-you-page {
+    text-align: center;
+    padding: 2rem;
+}
+
+.thank-you-page h2 {
+    font-size: 2rem;
+    color: #4CAF50;
+}
+
+.thank-you-page p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.thank-you-page .qr-code {
+    margin: 2rem 0;
+}
+
+.thank-you-page .note {
+    font-size: 1rem;
+    color: #333;
+}
+/* Header Styling */
+/*header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+/* Logo Styling */
+
+
