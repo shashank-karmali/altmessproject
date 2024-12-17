@@ -94,6 +94,7 @@ function validateForm() {
     }
 }
 
+
 function goBack() {
     document.getElementById('student-details').style.display = 'none';
     document.getElementById('tiffin-options').style.display = 'block';
