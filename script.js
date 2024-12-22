@@ -18,30 +18,22 @@ function updateQuantity(inputId, operation, mealType) {
 }
 
 function updateTotalPrice() {
-    const vegQuantity = parseInt(document.getElementById('veg-quantity').value);
-    const nonvegQuantity = parseInt(document.getElementById('nonveg-quantity').value);
-    const specialQuantity = parseInt(document.getElementById('special-quantity').value);
+    const quantities = ['veg', 'nonveg', 'special'].map(type => ({
+        type,
+        quantity: parseInt(document.getElementById(`${type}-quantity`).value)
+    }));
 
-    const totalPrice = (vegQuantity * mealPrices.veg) +
-                       (nonvegQuantity * mealPrices.nonveg) +
-                       (specialQuantity * mealPrices.special);
-
+    const totalPrice = quantities.reduce((total, item) => total + (item.quantity * mealPrices[item.type]), 0);
     document.getElementById('total-price').innerText = `Total Price: ₹${totalPrice}`;
+    document.getElementById('total-price-display').innerText = `₹${totalPrice}`;
 }
 
 function showDetailsForm() {
-    const vegQuantity = parseInt(document.getElementById('veg-quantity').value);
-    const nonvegQuantity = parseInt(document.getElementById('nonveg-quantity').value);
-    const specialQuantity = parseInt(document.getElementById('special-quantity').value);
-
-    const totalQuantity = vegQuantity + nonvegQuantity + specialQuantity;
+    const totalQuantity = ['veg', 'nonveg', 'special'].reduce((total, type) =>
+        total + parseInt(document.getElementById(`${type}-quantity`).value), 0);
 
     if (totalQuantity > 0) {
-        const totalPrice = (vegQuantity * mealPrices.veg) +
-                           (nonvegQuantity * mealPrices.nonveg) +
-                           (specialQuantity * mealPrices.special);
-
-        document.getElementById('total-price-display').innerText = `₹${totalPrice}`;
+        updateTotalPrice();
         document.getElementById('tiffin-options').style.display = 'none';
         document.getElementById('student-details').style.display = 'block';
     } else {
@@ -50,147 +42,45 @@ function showDetailsForm() {
 }
 
 function validateForm() {
-    const name = document.getElementById('name').value;
+    const fields = ['name', 'mobile', 'hostel', 'room'];
+    const missingField = fields.find(field => !document.getElementById(field).value);
+
+    if (missingField) {
+        alert(`Please fill the ${missingField} field.`);
+        return false;
+    }
+
     const mobile = document.getElementById('mobile').value;
-    const hostel = document.getElementById('hostel').value;
-    const room = document.getElementById('room').value;
-
-    if (name && mobile && hostel && room) {
-        const vegQuantity = parseInt(document.getElementById('veg-quantity').value);
-        const nonvegQuantity = parseInt(document.getElementById('nonveg-quantity').value);
-        const specialQuantity = parseInt(document.getElementById('special-quantity').value);
-
-        const totalPrice = (vegQuantity * mealPrices.veg) +
-                           (nonvegQuantity * mealPrices.nonveg) +
-                           (specialQuantity * mealPrices.special);
-
-        if (name && mobile && hostel && room) {
-        alert('Order placed successfully!');
-        document.getElementById('student-details').style.display = 'none';
-        document.getElementById('thank-you-page').style.display = 'block';
-
-        // Prepare data to send to Google Sheets
-        var formData = new FormData();
-        formData.append("name", name);
-        formData.append("mobile", mobile);
-        formData.append("hostel", hostel);
-        formData.append("room", room);
-        formData.append("vegQuantity", vegQuantity);
-        formData.append("nonvegQuantity", nonvegQuantity);
-        formData.append("specialQuantity", specialQuantity);
-        formData.append("totalPrice", totalPrice);
-
-        // Send data to Google Sheets
-        fetch("https://script.google.com/macros/s/AKfycbw1TyUWA5hKGOJCwquZsLgEXimblXZk84yG3mkHBJPbAsZtDrf73Tc_ojUkq_xxMWmgfw/exec", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.text())
-        .then(result => {
-            console.log("Success:", result);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-        
-        document.getElementById('student-details').style.display = 'none';
-        document.getElementById('thank-you-page').style.display = 'block';
-        document.querySelector('.qr-code').style.textAlign = 'center'; // Center QR code
-        document.querySelector('.qr-code').style.marginTop = '20px';
-
-        // Display total amount in large size
-        const totalAmount = document.createElement('p');
-        totalAmount.textContent = `Amount to Pay: ₹${totalPrice}`;
-        totalAmount.style.textAlign = 'center';
-        totalAmount.style.marginTop = '20px';
-        totalAmount.style.fontSize = '1.5rem';
-        totalAmount.style.fontWeight = 'bold';
-        document.getElementById('thank-you-page').appendChild(totalAmount);
-
-        return false; // Prevent form from submitting normally
-    } else {
-        alert('Please fill all the details');
+    if (!/^\d{10}$/.test(mobile)) {
+        alert('Please enter a valid 10-digit mobile number.');
         return false;
     }
-        document.getElementById('student-details').style.display = 'none';
-        document.getElementById('thank-you-page').style.display = 'block';
-        document.querySelector('.qr-code').style.textAlign = 'center'; // Center QR code
-        document.querySelector('.qr-code').style.marginTop = '20px';
 
-        // Display total amount in large size
-        const totalAmount = document.createElement('p');
-        totalAmount.textContent = `Amount to Pay: ₹${totalPrice}`;
-        totalAmount.style.textAlign = 'center';
-        totalAmount.style.marginTop = '20px';
-        totalAmount.style.fontSize = '1.5rem';
-        totalAmount.style.fontWeight = 'bold';
-        document.getElementById('thank-you-page').appendChild(totalAmount);
-
-        const note = document.createElement('p');
-
-        note.textContent = 'Kindly put your mobile number in the remarks';
-        note.style.textAlign = 'center';
-        note.style.marginTop = '10px';
-        note.style.fontSize = '1rem';
-        note.style.fontWeight = '1rem';
-        document.getElementById('thank-you-page').appendChild(note); // Add note to thank you page
-        return false;
-    }
+    alert('Order placed successfully!');
+    sendToGoogleSheets();
+    return false;
 }
 
-/*function validateForm() {
-    const name = document.getElementById('name').value;
-    const mobile = document.getElementById('mobile').value;
-    const hostel = document.getElementById('hostel').value;
-    const room = document.getElementById('room').value;
-    
-    const vegQuantity = parseInt(document.getElementById('veg-quantity').value);
-    const nonvegQuantity = parseInt(document.getElementById('nonveg-quantity').value);
-    const specialQuantity = parseInt(document.getElementById('special-quantity').value);
+function sendToGoogleSheets() {
+    const data = {
+        name: document.getElementById('name').value,
+        mobile: document.getElementById('mobile').value,
+        hostel: document.getElementById('hostel').value,
+        room: document.getElementById('room').value,
+        vegQuantity: parseInt(document.getElementById('veg-quantity').value),
+        nonvegQuantity: parseInt(document.getElementById('nonveg-quantity').value),
+        specialQuantity: parseInt(document.getElementById('special-quantity').value),
+        totalPrice: parseInt(document.getElementById('total-price-display').innerText.replace('₹', ''))
+    };
 
-    const totalPrice = (vegQuantity * mealPrices.veg) +
-                       (nonvegQuantity * mealPrices.nonveg) +
-                       (specialQuantity * mealPrices.special);
+    fetch("https://script.google.com/macros/s/AKfycbw1TyUWA5hKGOJCwquZsLgEXimblXZk84yG3mkHBJPbAsZtDrf73Tc_ojUkq_xxMWmgfw/exec", {
+        method: "POST",
+        body: new URLSearchParams(data)
+    })
+    .then(response => response.text())
+    .then(result => console.log("Success:", result))
+    .catch(error => console.error("Error:", error));
 
-    if (name && mobile && hostel && room) {
-        alert('Order placed successfully!');
-        document.getElementById('student-details').style.display = 'none';
-        document.getElementById('thank-you-page').style.display = 'block';
-
-        // Prepare data to send to Google Sheets
-        var formData = new FormData();
-        formData.append("name", name);
-        formData.append("mobile", mobile);
-        formData.append("hostel", hostel);
-        formData.append("room", room);
-        formData.append("vegQuantity", vegQuantity);
-        formData.append("nonvegQuantity", nonvegQuantity);
-        formData.append("specialQuantity", specialQuantity);
-        formData.append("totalPrice", totalPrice);
-
-        // Send data to Google Sheets
-        fetch("https://script.google.com/macros/s/AKfycbw1TyUWA5hKGOJCwquZsLgEXimblXZk84yG3mkHBJPbAsZtDrf73Tc_ojUkq_xxMWmgfw/exec", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.text())
-        .then(result => {
-            console.log("Success:", result);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-
-        return false; // Prevent form from submitting normally
-    } else {
-        alert('Please fill all the details');
-        return false;
-    }
-}
-*/
-
-
-function goBack() {
     document.getElementById('student-details').style.display = 'none';
-    document.getElementById('tiffin-options').style.display = 'block';
+    document.getElementById('thank-you-page').style.display = 'block';
 }
