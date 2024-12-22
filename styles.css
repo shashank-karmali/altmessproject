@@ -161,3 +161,13 @@ input[type="text"], input[type="tel"], select {
     }
 }
 
+.timer {
+    font-size: 1.6rem;
+    color: #ff4500; /* Orange-red for visibility */
+    margin-left: 180px;
+    font-weight: bold;
+}
+button:disabled {
+    background-color: #ccc; /* Gray background for disabled button */
+    cursor: not-allowed;
+}
