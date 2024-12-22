@@ -1,227 +1,190 @@
 body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: url('./Cover.jpeg') no-repeat center center fixed;
-  background-size: cover; /* Ensures the image covers the entire viewport */
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  backdrop-filter: brightness(0.3);
-  width: 100vw; /* Use vw for full viewport width */
-  max-width: 100vw; /* Prevent it from exceeding viewport width */
-  padding: 0; /* Remove unnecessary padding */
-  margin: 0 auto; /* Center align on larger screens */
-  box-sizing: border-box; /* Include padding in the width */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('./Cover.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    backdrop-filter: brightness(0.3);
 }
 
 header {
-  /* Sky blue for the header */
-  padding: 0rem;
-  text-align: center;
-  color: white;
-  font-weight: bold;
+    padding: 0rem;
+    text-align: center;
+    color: white;
+    font-weight: bold;
 }
 
 main {
-  padding: 1rem;
-  max-width: 80vw; /* Use vw for responsive width */
-  margin: auto;
-  flex: 1; /* Ensures main takes up available space */
-  background-color: #ffffff; /* White background for contrast */
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    max-width: 800px;
+    margin: auto;
+    flex: 1;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .tiffin {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #f5f5f5; /* Light gray for cards */
-  margin: 1rem 0;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#tiffin-options h2 {
-  display: flex; /* Use flexbox for the heading */ 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .tiffin-info h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #2e8b57; /* Sea green for headings */
+    margin: 0;
+    font-size: 1.2rem;
+    color: #2e8b57;
 }
 
 .tiffin-info li {
-  margin: 0;
-  left-padding: 1rem;
-  font-size: 1rem;
-  color: #11111; /* Sea green for headings */
+    margin: 0;
+    font-size: 1rem;
+    color: #111;
 }
+
 .quantity-selector {
-  display: flex;
-  align-items: center; /* Vertically center-align the elements */
-  justify-content: center; /* Horizontally center-align if needed */
-  gap: 10px; /* Add some space between the buttons and the box */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .quantity-selector button {
-  font-size: 1rem; /* Adjust font size */
-  padding: 10px; /* Add padding for a consistent look */
-  width: 25px; /* Set a consistent width for buttons */
-  height: 25px; /* Set a consistent height for buttons */
-  display: flex; /* Make the button a flex container */
-  align-items: center; /* Center-align content vertically */
-  justify-content: center; /* Center-align content horizontally */
-  border: 2px solid #ccc; /* Optional: Add a border */
-  border-radius: 5px; /* Optional: Round corners */
-  cursor: pointer; /* Add a pointer cursor for interactivity */
-  margin-top: 15px;
+    background-color: #f9d854;
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    padding: 10px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
 }
 
 .quantity-selector button:hover {
-  background-color: #ff7f50; /* Coral for hover state */
+    background-color: #ff7f50;
 }
 
 .quantity-selector input {
-  width: 2rem;
-  text-align: center;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #fffaf0; /* Floral white for input background */
+    width: 2rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fffaf0;
 }
 
 button {
-  display: block;
-  margin: 2rem auto;
-  background-color: #f9d854; /* Light salmon for primary buttons */
-  color: white;
-  border: none;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s, transform 0.2s;
+    display: block;
+    margin: 2rem auto;
+    background-color: #f9d854;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
-  background-color: #ff7f50; /* Coral for hover state */
-  transform: scale(1.05);
+    background-color: #ff7f50;
+    transform: scale(1.05);
 }
 
 .cart-summary {
-  margin: 2rem 0;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #2e8b57; /* Sea green for summary text */
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2e8b57;
 }
 
 .form-section {
-  display: none;
+    display: none;
 }
 
 footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #333; /* Steel blue for footer */
-  color: white;
-  margin-top: 2rem;
-  flex-shrink: 0; /* Ensures footer stays at the bottom */
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: white;
+    margin-top: 2rem;
+    flex-shrink: 0;
 }
 
 input[type="text"], input[type="tel"], select {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f0fff0; /* Honeydew for input fields */
-}
-
-/*@media (max-width: 600px) {
-  button {
-    width: 50%;
-  }
-}*/
-
-.thank-you-page .qr-code {
-  text-align: center;
-  margin: 20px auto;
-}
-
-.thank-you-page .note {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 10px;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f0fff0;
 }
 
 @media (max-width: 600px) {
-  main {
-    padding: 1rem;
-    width: 90vw; /* Use vw for responsive width */
-    margin: 0 auto; /* Center align on larger screens */
-  }
-  body{
-    width: 100vw;
-    background: url('./Cover.jpeg') no-repeat center center fixed;
-    backdrop-filter: brightness(0.3);
-    background-size: cover;
-  }
-  button {
-    width: 80vw; /* Use vw for responsive button width */
-  }
-  input[type="text"], .count-box {
-    font-size: 1.2rem; /* Larger font for mobile devices */
-    width: 25px; /* Adjust width for mobile */
-    height: 25px; /* Adjust height for mobile */
+    button {
+        width: 50%;
     }
-    #tiffin-options h2 {
-    font-size: 1.1rem; /* Use flexbox for the heading */ 
-    }
+}
 
+.thank-you-page .qr-code {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.thank-you-page .note {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 1rem;
+        width: 90%;
+        align-items: center;
+    }
+    button {
+        width: 80%;
+    }
 }
 
 .timer {
-  font-size: 1.6rem;
-  color: #ff4500; /* Orange-red for visibility */
-  margin-left: 180px;
-  font-weight: bold;
-  
+    font-size: 1.5rem;
+    color: #ff4500;
+    margin-left: 180px;
+    font-weight: bold;
 }
 
-button:disabled {
-  background-color: #ccc; /* Gray background for disabled button */
-  cursor: not-allowed;
+#tiffin-options input[type="text"], .count-box {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
 }
 
-/* Ensure the container takes full width on mobile devices */
-
-/* For the table specifically */
-.table {
-  width: 100%; /* Ensure the table takes full width */
-  border-collapse: collapse; /* Remove gaps between table cells */
+#student-details input[type="text"], .count-box {
+    padding: 5px;
 }
 
-/* Container holding the buttons and the count box */
-.count-container {
-  display: flex;
-  align-items: center; /* Vertically center-align the elements */
-  justify-content: center; /* Horizontally center-align if needed */
-  gap: 10px; /* Add some space between the buttons and the box */
-}
-
-/* Count box styling */
-input[type="text"], .count-box {
-  font-size: 1.2rem; /* Increase font size */
-  font-weight: bold; /* Bold text */
-  text-align: center; /* Center-align text */
-  padding: 10px;
-  width: 25px; /* Adjust width */
-  height: 25px; /* Match height with buttons */
-  border: 2px solid #ccc; /* Add a border */
-  border-radius: 5px; /* Round corners */
+#mobie input[type="text"], .count-box {
+    padding: 5px;
 }
