@@ -29,26 +29,35 @@ main {
 
 
 header {
+    padding: 0rem;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+header {
     width: 100%;
-    height: 100vh; /* Ensure it takes the full height of the viewport */
+     /* Ensure it takes the full height of the viewport */
     background-size: cover; /* Scale the background to cover the entire header */
     background-position: center; /* Center the background image */
     display: flex;
     align-items: center; /* Center content vertically */
     justify-content: center; /* Center content horizontally */
     text-align: center;
+    padding-bottom: 5px;
 }
-
 @media (max-width: 600px) { /* For smaller screens */
     header {
         height: auto; /* Adjust height to content if needed */
-        padding: 0px; /* Add some padding */
+        padding-bottom: 5px; /* Add some padding */
     }
 }
 
+
+
 main {
     padding: 1rem;
-    max-width: 800px;
+    max-width: 600px;
     margin: auto;
     flex: 1;
     background-color: #ffffff;
