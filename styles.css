@@ -26,8 +26,9 @@ main {
 }
 
 
-
-
+.note h3{
+    color: #EE4B2B;
+}
 
 
 header {
@@ -53,7 +54,10 @@ header {
     }
 }
 
-
+.note {
+    color: red; /* Changes text color to red */
+    font-weight: bold; /* Keeps the text bold as specified in the HTML */
+}
 
 main {
     padding: 1rem;
