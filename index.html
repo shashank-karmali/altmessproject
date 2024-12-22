@@ -1,237 +1,126 @@
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('./Cover.jpeg') no-repeat center center fixed;
-    background-size: cover; /* Ensures the image covers the entire viewport */
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    backdrop-filter: brightness(0.3);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AltMess</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <img src="1.png" alt="AltMess Logo" style="max-width: 1000px ; height: 10rem;">
+    </header>
 
-/* Optional: Add overlay for text readability */
+    <main>
+        <section id="tiffin-options">
+            <h2>Select Your Tiffin <span id="timer" class="timer"></span></h2>
 
+            <div class="tiffin">
+    <div class="tiffin-info">
+        <h3>Tiffin Box 1</h3>
+        <ul>
+            <li>Rice, Dal, Vegetables</li>
+            <li>Curd and Salad</li>
+            <li>Light and Healthy</li>
+        </ul>
+        <p class="price">₹100</p>
+    </div>
+    <div class="quantity-selector">
+        <button onclick="updateQuantity('veg-quantity', 'decrement', 'veg')">-</button>
+        <input type="text" id="veg-quantity" value="0" readonly>
+        <button onclick="updateQuantity('veg-quantity', 'increment', 'veg')">+</button>
+    </div>
+</div>
 
-header {
-    /* Sky blue for the header */
+<div class="tiffin">
+    <div class="tiffin-info">
+        <h3>Tiffin Box 2</h3>
+        <ul>
+            <li>Rice, Dal, Vegetables</li>
+            <li>Curd and Salad</li>
+            <li>Light and Healthy</li>
+        </ul>
+        <p class="price">₹150</p>
+    </div>
+    <div class="quantity-selector">
+        <button onclick="updateQuantity('nonveg-quantity', 'decrement', 'nonveg')">-</button>
+        <input type="text" id="nonveg-quantity" value="0" readonly>
+        <button onclick="updateQuantity('nonveg-quantity', 'increment', 'nonveg')">+</button>
+    </div>
+</div>
 
-    padding: 0rem;
-    text-align: center;
-    color: white;
-    font-weight: bold;
+<div class="tiffin">
+    <div class="tiffin-info">
+        <h3>Tiffin Box 3</h3>
+        <ul>
+            <li>Rice, Dal, Paneer</li>
+            <li>Curd and Salad</li>
+            <li>Rich and Nutritious</li>
+        </ul>
+        <p class="price">₹200</p>
+    </div>
+    <div class="quantity-selector">
+        <button onclick="updateQuantity('special-quantity', 'decrement', 'special')">-</button>
+        <input type="text" id="special-quantity" value="0" readonly>
+        <button onclick="updateQuantity('special-quantity', 'increment', 'special')">+</button>
+    </div>
+</div>
+            <div class="cart-summary">
+                <p id="total-price">Total Price: ₹0</p>
+            </div>
 
-}
+            <button id="nextButton" onclick="showDetailsForm()">Next</button>
+        </section>
 
-main {
-    padding: 1rem;
-    max-width: 800px;
-    margin: auto;
-    flex: 1; /* Ensures main takes up available space */
-    background-color: #ffffff; /* White background for contrast */
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+        <section id="student-details" class="form-section" style="display: none;">
+            <h2>Enter Your Details</h2>
+            <label for="delivery-location">Delivery Location:</label>
+            <select id="delivery-location">
+                <option value="">Select the delivery location</option>
+                <option value="A&B">A & B</option>
+                <option value="C">C</option>
+                <option value="D&F">D & F</option>
+                <option value="L1&L2">L1 & L2</option>
+                <option value="J&K">J & K</option>
+            </select>
 
-.tiffin {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #f5f5f5; /* Light gray for cards */
-    margin: 1rem 0;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+            <form onsubmit="return validateForm();">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
 
-.tiffin-info h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #2e8b57; /* Sea green for headings */
-}
+                <label for="mobile">Mobile Number</label>
+                <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" title="Please enter a 10-digit mobile number" required>
 
-.tiffin-info li {
-    margin: 0;
-    left-padding: 1rem;
-    font-size: 1rem;
-    color: #11111; /* Sea green for headings */
-}
-.quantity-selector {
-    display: flex;
-    align-items: center; /* Vertically center-align the elements */
-    justify-content: center; /* Horizontally center-align if needed */
-    gap: 10px; /* Add some space between the buttons and the box */
-}
+                <label for="hostel">Hostel Number</label>
+                <input type="text" id="hostel" name="hostel" required>
 
-.quantity-selector button {
-   font-size: 1rem; /* Adjust font size */
-    padding: 10px; /* Add padding for a consistent look */
-    width: 20px; /* Set a consistent width for buttons */
-    height: 20px; /* Set a consistent height for buttons */
-    display: flex; /* Make the button a flex container */
-    align-items: center; /* Center-align content vertically */
-    justify-content: center; /* Center-align content horizontally */
-    border: 2px solid #ccc; /* Optional: Add a border */
-    border-radius: 5px; /* Optional: Round corners */
-    cursor: pointer; /* Add a pointer cursor for interactivity */
-    margin-top:15px;
+                <label for="room">Room Number</label>
+                <input type="text" id="room" name="room" pattern="\d+" title="Room number should only contain digits" required>
 
-}
+                <div class="total-price">
+                    Total Price: <span id="total-price-display">₹0</span>
+                </div>
 
-.quantity-selector button:hover {
-    background-color: #ff7f50; /* Coral for hover state */
-}
+                <div class="button-container">
+                    <button type="submit">Proceed to Place Order</button>
+                    <button type="button" onclick="goBack()">Back</button>
+                </div>
+            </form>
+        </section>
 
-.quantity-selector input {
-    width: 2rem;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fffaf0; /* Floral white for input background */
-}
+        <section id="thank-you-page" class="thank-you-page" style="display: none;">
+            <center><h2>Thank You! Your Order Has Been Placed</h2></center>
+            <div class="qr-code">
+                <img src="Payment.png" alt="QR Code" width="150" position="center" >
+            </div>
+            <center><p class="note"><b>Scan the QR code and pay to confirm the order</b></p></center>
+            <center><h2 class="note"><b>Kindly put your mobile number in the remarks</b></h2></center>
+        </section>
+    </main>
 
-button {
-    display: block;
-    margin: 2rem auto;
-    background-color: #f9d854; /* Light salmon for primary buttons */
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-    background-color: #ff7f50; /* Coral for hover state */
-    transform: scale(1.05);
-}
-
-.cart-summary {
-    margin: 2rem 0;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #2e8b57; /* Sea green for summary text */
-}
-
-.form-section {
-    display: none;
-}
-
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #333; /* Steel blue for footer */
-    color: white;
-    margin-top: 2rem;
-    flex-shrink: 0; /* Ensures footer stays at the bottom */
-}
-
-input[type="text"], input[type="tel"], select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f0fff0; /* Honeydew for input fields */
-}
-
-/*@media (max-width: 600px) {
-    button {
-        width: 50%;
-    }
-}*/
-
-.thank-you-page .qr-code {
-    text-align: center;
-    margin: 20px auto;
-}
-
-.thank-you-page .note {
-    text-align: center;
-    font-size: 1.2rem;
-    margin-top: 10px;
-}
-
-@media (max-width: 600px) {
-    main {
-        padding: 1rem;
-        width: 90%;
-    }
-    button {
-        width: 80%;
-    }
-}
-
-.timer {
-    font-size: 1.6rem;
-    color: #ff4500; /* Orange-red for visibility */
-    margin-left: 180px;
-    font-weight: bold;
-}
-button:disabled {
-    background-color: #ccc; /* Gray background for disabled button */
-    cursor: not-allowed;
-}
-
-/* Ensure the container takes full width on mobile devices */
-.container {
-    width: 100%; /* Make sure the container spans the full width */
-    max-width: 100%; /* Prevent it from having a max width smaller than 100% */
-    padding: 0; /* Remove unnecessary padding */
-    margin: 0 auto; /* Center align on larger screens */
-    box-sizing: border-box; /* Include padding in the width */
-}
-/* For the table specifically */
-.table {
-    width: 100%; /* Ensure the table takes full width */
-    border-collapse: collapse; /* Remove gaps between table cells */
-}
-
-@media (max-width: 768px) {
-    .container, .table {
-        width: 100%;
-        padding: 0; /* Remove extra padding on mobile */
-    }
-}
-
-
-/* Container holding the buttons and the count box */
-.count-container {
-    display: flex;
-    align-items: center; /* Vertically center-align the elements */
-    justify-content: center; /* Horizontally center-align if needed */
-    gap: 10px; /* Add some space between the buttons and the box */
-}
-
-
-
-/* Count box styling */
-input[type="text"], .count-box {
-    font-size: 1.2rem; /* Increase font size */
-    font-weight: bold; /* Bold text */
-    text-align: center; /* Center-align text */
-    padding: 10px;
-    width: 25px; /* Adjust width */
-    height: 25px; /* Match height with buttons */
-    border: 2px solid #ccc; /* Add a border */
-    border-radius: 5px; /* Round corners */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    button {
-        font-size: 2rem; /* Larger font for mobile devices */
-        width: 60px; /* Adjust width for mobile */
-        height: 60px; /* Adjust height for mobile */
-    }
-
-    input[type="text"], .count-box {
-        font-size: 2rem; /* Larger font for mobile devices */
-        width: 70px; /* Adjust width for mobile */
-        height: 60px; /* Adjust height for mobile */
-    }
-}
+    <footer>
+        <p>&copy; 2024 AltMess. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
