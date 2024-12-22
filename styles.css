@@ -9,6 +9,11 @@ body {
     flex-direction: column;
     min-height: 100vh;
     backdrop-filter: brightness(0.3);
+    width: 100%; /* Make sure the container spans the full width */
+    max-width: 100%; /* Prevent it from having a max width smaller than 100% */
+    padding: 0; /* Remove unnecessary padding */
+    margin: 0 auto; /* Center align on larger screens */
+    box-sizing: border-box; /* Include padding in the width */
 }
 
 /* Optional: Add overlay for text readability */
@@ -192,7 +197,7 @@ button:disabled {
 }
 
 @media (max-width: 768px) {
-    .container, .table {
+    .body, .table {
         width: 100%;
         padding: 0; /* Remove extra padding on mobile */
     }
