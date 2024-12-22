@@ -58,20 +58,25 @@ main {
     color: #11111; /* Sea green for headings */
 }
 .quantity-selector {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: flex;
+    align-items: center; /* Vertically center-align the elements */
+    justify-content: center; /* Horizontally center-align if needed */
+    gap: 10px; /* Add some space between the buttons and the box */
 }
 
 .quantity-selector button {
-    background-color: #f9d854; /* Light salmon for buttons */
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+   font-size: 1rem; /* Adjust font size */
+    padding: 10px; /* Add padding for a consistent look */
+    width: 20px; /* Set a consistent width for buttons */
+    height: 20px; /* Set a consistent height for buttons */
+    display: flex; /* Make the button a flex container */
+    align-items: center; /* Center-align content vertically */
+    justify-content: center; /* Center-align content horizontally */
+    border: 2px solid #ccc; /* Optional: Add a border */
+    border-radius: 5px; /* Optional: Round corners */
+    cursor: pointer; /* Add a pointer cursor for interactivity */
+    margin-top:15px;
+
 }
 
 .quantity-selector button:hover {
@@ -170,4 +175,63 @@ input[type="text"], input[type="tel"], select {
 button:disabled {
     background-color: #ccc; /* Gray background for disabled button */
     cursor: not-allowed;
+}
+
+/* Ensure the container takes full width on mobile devices */
+.container {
+    width: 100%; /* Make sure the container spans the full width */
+    max-width: 100%; /* Prevent it from having a max width smaller than 100% */
+    padding: 0; /* Remove unnecessary padding */
+    margin: 0 auto; /* Center align on larger screens */
+    box-sizing: border-box; /* Include padding in the width */
+}
+/* For the table specifically */
+.table {
+    width: 100%; /* Ensure the table takes full width */
+    border-collapse: collapse; /* Remove gaps between table cells */
+}
+
+@media (max-width: 768px) {
+    .container, .table {
+        width: 100%;
+        padding: 0; /* Remove extra padding on mobile */
+    }
+}
+
+
+/* Container holding the buttons and the count box */
+.count-container {
+    display: flex;
+    align-items: center; /* Vertically center-align the elements */
+    justify-content: center; /* Horizontally center-align if needed */
+    gap: 10px; /* Add some space between the buttons and the box */
+}
+
+
+
+/* Count box styling */
+input[type="text"], .count-box {
+    font-size: 1.2rem; /* Increase font size */
+    font-weight: bold; /* Bold text */
+    text-align: center; /* Center-align text */
+    padding: 10px;
+    width: 25px; /* Adjust width */
+    height: 25px; /* Match height with buttons */
+    border: 2px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Round corners */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    button {
+        font-size: 2rem; /* Larger font for mobile devices */
+        width: 60px; /* Adjust width for mobile */
+        height: 60px; /* Adjust height for mobile */
+    }
+
+    input[type="text"], .count-box {
+        font-size: 2rem; /* Larger font for mobile devices */
+        width: 70px; /* Adjust width for mobile */
+        height: 60px; /* Adjust height for mobile */
+    }
 }
