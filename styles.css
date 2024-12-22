@@ -48,8 +48,10 @@ header {
 }
 @media (max-width: 600px) { /* For smaller screens */
     header {
+        width: 90%
         height: auto; /* Adjust height to content if needed */
         padding-bottom: 5px; /* Add some padding */
+        align-items: center;
     }
 }
 
