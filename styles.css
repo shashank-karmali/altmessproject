@@ -48,12 +48,15 @@ header {
 }
 @media (max-width: 600px) { /* For smaller screens */
     header {
-        width: 90%
         height: auto; /* Adjust height to content if needed */
+        width:80%;
         padding-bottom: 5px; /* Add some padding */
-        align-items: center;
+        
+        background-size: cover; /* Scale the background to cover the entire header */
+        background-position: center; /* Center the background image */
     }
 }
+
 
 
 
