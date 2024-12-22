@@ -11,6 +11,23 @@ body {
     backdrop-filter: brightness(0.3);
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Ensures the body takes the full width */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+main {
+    width: 100vw; /* Full viewport width */
+    max-width: 100%; /* Prevents any additional overflow */
+    padding: 1rem; /* Maintain padding inside the content */
+    box-sizing: border-box; /* Includes padding in the width calculation */
+}
+
+
+
+
 header {
     padding: 0rem;
     text-align: center;
@@ -158,9 +175,9 @@ input[type="text"], input[type="tel"], select {
 }
 
 .timer {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     color: #ff4500;
-    margin-left: 180px;
+    padding-left: 10px;
     font-weight: bold;
 }
 
@@ -182,3 +199,6 @@ input[type="text"], input[type="tel"], select {
 #mobie input[type="text"], .count-box {
     padding: 5px;
 }
+
+
+
