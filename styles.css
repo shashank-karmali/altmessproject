@@ -67,8 +67,8 @@ main {
 .quantity-selector button {
    font-size: 1rem; /* Adjust font size */
     padding: 10px; /* Add padding for a consistent look */
-    width: 20px; /* Set a consistent width for buttons */
-    height: 20px; /* Set a consistent height for buttons */
+    width: 25px; /* Set a consistent width for buttons */
+    height: 25px; /* Set a consistent height for buttons */
     display: flex; /* Make the button a flex container */
     align-items: center; /* Center-align content vertically */
     justify-content: center; /* Center-align content horizontally */
