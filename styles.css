@@ -135,11 +135,6 @@ input[type="text"], input[type="tel"], select {
     background-color: #f0fff0;
 }
 
-@media (max-width: 600px) {
-    button {
-        width: 50%;
-    }
-}
 
 .thank-you-page .qr-code {
     text-align: center;
@@ -156,7 +151,6 @@ input[type="text"], input[type="tel"], select {
     main {
         padding: 1rem;
         width: 90%;
-        align-items: center;
     }
     button {
         width: 80%;
