@@ -24,8 +24,14 @@ function updateTotalPrice() {
     }));
 
     const totalPrice = quantities.reduce((total, item) => total + (item.quantity * mealPrices[item.type]), 0);
+
     document.getElementById('total-price').innerText = `Total Price: ₹${totalPrice}`;
     document.getElementById('total-price-display').innerText = `₹${totalPrice}`;
+    
+    const amountToPayElement = document.getElementById('amount-to-pay');
+    if (amountToPayElement) {
+        amountToPayElement.innerText = `₹${totalPrice}`;
+    }
 }
 
 function showDetailsForm() {
@@ -77,9 +83,9 @@ function sendToGoogleSheets() {
         method: "POST",
         body: new URLSearchParams(data)
     })
-    .then(response => response.text())
-    .then(result => console.log("Success:", result))
-    .catch(error => console.error("Error:", error));
+        .then(response => response.text())
+        .then(result => console.log("Success:", result))
+        .catch(error => console.error("Error:", error));
 
     document.getElementById('student-details').style.display = 'none';
     document.getElementById('thank-you-page').style.display = 'block';
@@ -113,4 +119,3 @@ function updateTimer() {
 
 // Start the timer update loop
 setInterval(updateTimer, 1000);
-
