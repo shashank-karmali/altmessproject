@@ -230,8 +230,8 @@ input[type="text"], .count-box {
     }
 
     input[type="text"], .count-box {
-        font-size: 2rem; /* Larger font for mobile devices */
-        width: 70px; /* Adjust width for mobile */
-        height: 60px; /* Adjust height for mobile */
+        font-size: 1.2rem; /* Larger font for mobile devices */
+        width: 25px; /* Adjust width for mobile */
+        height: 25px; /* Adjust height for mobile */
     }
 }
