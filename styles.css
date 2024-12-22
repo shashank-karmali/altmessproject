@@ -134,8 +134,30 @@ input[type="text"], input[type="tel"], select {
     background-color: #f0fff0; /* Honeydew for input fields */
 }
 
-@media (max-width: 600px) {
+/*@media (max-width: 600px) {
     button {
         width: 50%;
     }
+}*/
+
+.thank-you-page .qr-code {
+    text-align: center;
+    margin: 20px auto;
 }
+
+.thank-you-page .note {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 1rem;
+        width: 90%;
+    }
+    button {
+        width: 80%;
+    }
+}
+
