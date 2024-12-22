@@ -84,3 +84,33 @@ function sendToGoogleSheets() {
     document.getElementById('student-details').style.display = 'none';
     document.getElementById('thank-you-page').style.display = 'block';
 }
+
+// Set the deadline time to today's 8:00 PM
+const deadline = new Date();
+deadline.setHours(24, 0, 0, 0); // 20:00 is 8 PM
+
+// Update timer every second
+function updateTimer() {
+    const now = new Date();
+    const timeRemaining = Math.max(0, deadline - now); // Calculate time left in milliseconds
+
+    const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((timeRemaining / (1000 * 60)) % 60);
+    const seconds = Math.floor((timeRemaining / 1000) % 60);
+
+    const timerElement = document.getElementById('timer');
+    const nextButton = document.getElementById('nextButton');
+
+    if (timeRemaining > 0) {
+        // Update timer display (hours, minutes, seconds)
+        timerElement.textContent = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    } else {
+        // Time's up: Disable the button
+        timerElement.textContent = "Time's up!";
+        nextButton.disabled = true;
+    }
+}
+
+// Start the timer update loop
+setInterval(updateTimer, 1000);
+
