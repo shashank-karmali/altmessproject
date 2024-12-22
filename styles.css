@@ -223,11 +223,7 @@ input[type="text"], .count-box {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    button {
-        font-size: 1rem; /* Larger font for mobile devices */
-        width: 20px; /* Adjust width for mobile */
-        height: 20px; /* Adjust height for mobile */
-    }
+    
 
     input[type="text"], .count-box {
         font-size: 1.2rem; /* Larger font for mobile devices */
