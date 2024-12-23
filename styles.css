@@ -1,243 +1,130 @@
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('./Cover.jpeg') no-repeat center center fixed;
-    background-size: cover;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    backdrop-filter: brightness(0.3);
+const mealPrices = {
+    veg: 100,
+    nonveg: 150,
+    special: 200
+};
+
+function updateQuantity(inputId, operation, mealType) {
+    const input = document.getElementById(inputId);
+    let currentValue = parseInt(input.value);
+
+    if (operation === 'increment' && currentValue < 9) {
+        input.value = currentValue + 1;
+    } else if (operation === 'decrement' && currentValue > 0) {
+        input.value = currentValue - 1;
+    }
+
+    updateTotalPrice();
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%; /* Ensures the body takes the full width */
-    overflow-x: hidden; /* Prevents horizontal scrolling */
-}
+function updateTotalPrice() {
+    const quantities = ['veg', 'nonveg', 'special'].map(type => ({
+        type,
+        quantity: parseInt(document.getElementById(`${type}-quantity`).value)
+    }));
 
-main {
-    width: 100vw; /* Full viewport width */
-    max-width: 100%; /* Prevents any additional overflow */
-    padding: 1rem; /* Maintain padding inside the content */
-    box-sizing: border-box; /* Includes padding in the width calculation */
-}
+    const totalPrice = quantities.reduce((total, item) => total + (item.quantity * mealPrices[item.type]), 0);
 
-
-.note h3{
-    color: #EE4B2B;
-}
-
-header {
+    document.getElementById('total-price').innerText = `Total Price: ₹${totalPrice}`;
+    document.getElementById('total-price-display').innerText = `₹${totalPrice}`;
     
-    overflow-x : hidden;
-     /* Ensure it takes the full height of the viewport */
-    background-size: cover; /* Scale the background to cover the entire header */
-    background-position: center; /* Center the background image */
-    display: flex;
-    align-items: center; /* Center content vertically */
-    justify-content: center; /* Center content horizontally */
-    text-align: center;
-    padding: 5px;
-     /* Prevent scrolling within the header */
-}
-header img {
-        max-width: 100%;
-        height: 10rem;
-        object-fit: contain; /* Ensures the image scales while maintaining aspect ratio */
-        object-position: center; /* Centers the image */
-    }
-
-@media (max-width: 600px) {
-    header {
-        padding-bottom: 5px;
-        padding-top: 5px;
-    }
-    header img {
-        max-width: 100%; /* Slightly reduce the size for smaller screens */
-        object-position: center;
-        height: auto;
+    const amountToPayElement = document.getElementById('amount-to-pay');
+    if (amountToPayElement) {
+        amountToPayElement.innerText = `₹${totalPrice}`;
     }
 }
 
-@media (max-width: 600px) { /* For smaller screens */
+function showDetailsForm() {
+    const totalQuantity = ['veg', 'nonveg', 'special'].reduce((total, type) =>
+        total + parseInt(document.getElementById(`${type}-quantity`).value), 0);
+
+    if (totalQuantity > 0) {
+        updateTotalPrice();
+        document.getElementById('tiffin-options').style.display = 'none';
+        document.getElementById('student-details').style.display = 'block';
+    } else {
+        alert('Please select at least one meal option before proceeding.');
+    }
+}
+
+function validateForm() {
+    const fields = ['name', 'mobile', 'hostel', 'room'];
+    const missingField = fields.find(field => !document.getElementById(field).value);
+
+    if (missingField) {
+        alert(`Please fill the ${missingField} field.`);
+        return false;
+    }
+
+    const mobile = document.getElementById('mobile').value;
+    if (!/^\d{10}$/.test(mobile)) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return false;
+    }
+
+    alert('Order placed successfully!');
+    sendToGoogleSheets();
+    return false;
+}
+
+function sendToGoogleSheets() {
+    const data = {
+        name: document.getElementById('name').value,
+        mobile: document.getElementById('mobile').value,
+        hostel: document.getElementById('hostel').value,
+        room: document.getElementById('room').value,
+        vegQuantity: parseInt(document.getElementById('veg-quantity').value),
+        nonvegQuantity: parseInt(document.getElementById('nonveg-quantity').value),
+        specialQuantity: parseInt(document.getElementById('special-quantity').value),
+        totalPrice: parseInt(document.getElementById('total-price-display').innerText.replace('₹', ''))
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbw1TyUWA5hKGOJCwquZsLgEXimblXZk84yG3mkHBJPbAsZtDrf73Tc_ojUkq_xxMWmgfw/exec", {
+        method: "POST",
+        body: new URLSearchParams(data)
+    })
+        .then(response => response.text())
+        .then(result => console.log("Success:", result))
+        .catch(error => console.error("Error:", error));
+
+    document.getElementById('student-details').style.display = 'none';
+    document.getElementById('thank-you-page').style.display = 'block';
+}
+
+// Set the deadline time to today's 8:00 PM
+const deadline = new Date();
+deadline.setHours(24, 0, 0, 0); // 20:00 is 8 PM
+
+// Update timer every second
+function updateTimer() {
+    const now = new Date();
+    const timeRemaining = Math.max(0, deadline - now); // Calculate time left in milliseconds
+
+    const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((timeRemaining / (1000 * 60)) % 60);
+    const seconds = Math.floor((timeRemaining / 1000) % 60);
+
+    const timerElement = document.getElementById('timer');
+    const nextButton = document.getElementById('nextButton');
+
+    if (timeRemaining > 0) {
+        // Update timer display (hours, minutes, seconds)
+        timerElement.textContent = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    } else {
+        // Time's up: Disable the button
+        timerElement.textContent = "Time's up!";
+        nextButton.disabled = true;
+    }
+}
+
+// Start the timer update loop
+setInterval(updateTimer, 1000);
+
+function goBack() {
+    // Hide the student details section
+    document.getElementById('student-details').style.display = 'none';
     
-    .note{
-        font-size: 0.5rem;
-    }
+    // Show the tiffin options section
+    document.getElementById('tiffin-options').style.display = 'block';
 }
-
-.note {
-    color: red; /* Changes text color to red */
-    font-weight: bold; /* Keeps the text bold as specified in the HTML */
-}
-
-main {
-    padding: 1rem;
-    max-width: 600px;
-    margin: auto;
-    flex: 1;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.tiffin {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #f5f5f5;
-    margin: 1rem 0;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.tiffin-info h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #2e8b57;
-}
-
-.tiffin-info li {
-    margin: 0;
-    font-size: 1rem;
-    color: #111;
-}
-
-.quantity-selector {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.quantity-selector button {
-    background-color: #f9d854;
-    color: white;
-    border: none;
-    font-size: 1.5rem;
-    padding: 10px;
-    width: 25px;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-}
-
-.quantity-selector button:hover {
-    background-color: #ff7f50;
-}
-
-.quantity-selector input {
-    width: 2rem;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fffaf0;
-}
-
-button {
-    display: block;
-    margin: 2rem auto;
-    background-color: #f9d854;
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-    background-color: #ff7f50;
-    transform: scale(1.05);
-}
-
-.cart-summary {
-    margin: 2rem 0;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #2e8b57;
-}
-
-.form-section {
-    display: none;
-}
-
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #333;
-    color: white;
-    margin-top: 2rem;
-    flex-shrink: 0;
-}
-
-input[type="text"], input[type="tel"], select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f0fff0;
-}
-
-
-.thank-you-page .qr-code {
-    text-align: center;
-    margin: 20px auto;
-}
-
-.thank-you-page .note {
-    text-align: center;
-    font-size: 1.2rem;
-    margin-top: 10px;
-}
-
-@media (max-width: 600px) {
-    main {
-        padding: 1rem;
-        width: 95%;
-    }
-    button {
-        width: 80%;
-    }
-}
-
-.timer {
-    font-size: 1.1rem;
-    color: #ff4500;
-    padding-left: 10px;
-    font-weight: bold;
-}
-
-#tiffin-options input[type="text"], .count-box {
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-}
-
-#student-details input[type="text"], .count-box {
-    padding: 5px;
-}
-
-#mobie input[type="text"], .count-box {
-    padding: 5px;
-}
-
-
 
